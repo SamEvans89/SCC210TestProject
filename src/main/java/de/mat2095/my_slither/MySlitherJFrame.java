@@ -97,6 +97,7 @@ final class MySlitherJFrame extends JFrame {
     private final JScrollBar logScrollBar;
     private final JTable highscoreList;
     private final MySlitherCanvas canvas;
+    private final JButton voice;
     private MySlitherWebSocketClient client;
 
     private final long startTime;
@@ -106,9 +107,17 @@ final class MySlitherJFrame extends JFrame {
     private final Player player;
     MySlitherModel model;
     final Object modelLock = new Object();
-
+    Thread thread;
+    
+    
     MySlitherJFrame() {
         super("MySlither");
+        
+        
+        Thread thread =new Thread(new test1());
+        thread.start();
+        
+        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -179,6 +188,9 @@ final class MySlitherJFrame extends JFrame {
         rank = new JLabel();
 
         kills = new JLabel();
+        
+        voice =new JButton("Voice close");
+        voice.addActionListener(this);
 
         settings.add(new JLabel("server:"),
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
@@ -206,6 +218,10 @@ final class MySlitherJFrame extends JFrame {
             new GridBagConstraints(4, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(rank,
             new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+            new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        settings.add(voice,
+            new GridBagConstraints(20, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+
 
         JComponent upperRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upperRow.add(settings);
@@ -429,6 +445,15 @@ final class MySlitherJFrame extends JFrame {
         highscoreList.setValueAt(highlighted ? "<html><b>" + length + "</b></html>" : length, row, 0);
         highscoreList.setValueAt(highlighted ? "<html><b>" + name + "</b></html>" : name, row, 1);
     }
+    
+        @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==voice){
+            test1.stopp();
+            thread.interrupt();
+        }
+    }
+
 
     private enum Status {
         DISCONNECTED("connect", false, true, true),
