@@ -15,7 +15,7 @@ import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 
-final class MySlitherJFrame extends JFrame {
+final class MySlitherJFrame extends JFrame implements ActionListener {
 
     private static final String[] SNAKES = {
         "00 - purple",
@@ -218,7 +218,8 @@ final class MySlitherJFrame extends JFrame {
             new GridBagConstraints(4, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(rank,
             new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
-            new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+          
+        
         settings.add(voice,
             new GridBagConstraints(20, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 
